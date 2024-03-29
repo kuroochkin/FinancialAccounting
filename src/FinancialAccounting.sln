@@ -1,8 +1,55 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{0A5A49D6-AB22-4F05-947A-65A11B2AB374}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAccounting.Domain", "Core\FinancialAccounting.Domain\FinancialAccounting.Domain.csproj", "{DAF7316C-5A5F-4322-BD19-8A9DA10D44B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAccounting.Core", "Core\FinancialAccounting.Core\FinancialAccounting.Core.csproj", "{6EEFD5B6-7525-4073-B2AB-AE6CB3C4FCDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{754015E4-B29B-4126-9B7A-E1C776BAA952}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAccounting.Data.PostgreSql", "Infrastructure\FinancialAccounting.Data.PostgreSql\FinancialAccounting.Data.PostgreSql.csproj", "{A12CB850-1319-42CF-8DC9-C3087441590C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{EABB56D7-54F5-4297-8A8E-1211FC62ED69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAccounting.Web", "Web\FinancialAccounting.Web\FinancialAccounting.Web.csproj", "{0B16FB14-2BE2-48FB-8C41-2FC69A4AA1B1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Contracts", "Contracts", "{8B8142D7-027E-4F71-97B5-309C5B85C181}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialAccounting.Contracts", "Contracts\FinancialAccounting.Contracts\FinancialAccounting.Contracts.csproj", "{BEEDDA1C-A803-4BF0-BE1F-0D36F0862C42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAF7316C-5A5F-4322-BD19-8A9DA10D44B4} = {0A5A49D6-AB22-4F05-947A-65A11B2AB374}
+		{6EEFD5B6-7525-4073-B2AB-AE6CB3C4FCDC} = {0A5A49D6-AB22-4F05-947A-65A11B2AB374}
+		{A12CB850-1319-42CF-8DC9-C3087441590C} = {754015E4-B29B-4126-9B7A-E1C776BAA952}
+		{0B16FB14-2BE2-48FB-8C41-2FC69A4AA1B1} = {EABB56D7-54F5-4297-8A8E-1211FC62ED69}
+		{BEEDDA1C-A803-4BF0-BE1F-0D36F0862C42} = {8B8142D7-027E-4F71-97B5-309C5B85C181}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAF7316C-5A5F-4322-BD19-8A9DA10D44B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF7316C-5A5F-4322-BD19-8A9DA10D44B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF7316C-5A5F-4322-BD19-8A9DA10D44B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF7316C-5A5F-4322-BD19-8A9DA10D44B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EEFD5B6-7525-4073-B2AB-AE6CB3C4FCDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EEFD5B6-7525-4073-B2AB-AE6CB3C4FCDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EEFD5B6-7525-4073-B2AB-AE6CB3C4FCDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EEFD5B6-7525-4073-B2AB-AE6CB3C4FCDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A12CB850-1319-42CF-8DC9-C3087441590C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A12CB850-1319-42CF-8DC9-C3087441590C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A12CB850-1319-42CF-8DC9-C3087441590C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A12CB850-1319-42CF-8DC9-C3087441590C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B16FB14-2BE2-48FB-8C41-2FC69A4AA1B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B16FB14-2BE2-48FB-8C41-2FC69A4AA1B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B16FB14-2BE2-48FB-8C41-2FC69A4AA1B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B16FB14-2BE2-48FB-8C41-2FC69A4AA1B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEEDDA1C-A803-4BF0-BE1F-0D36F0862C42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEEDDA1C-A803-4BF0-BE1F-0D36F0862C42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEEDDA1C-A803-4BF0-BE1F-0D36F0862C42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEEDDA1C-A803-4BF0-BE1F-0D36F0862C42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
