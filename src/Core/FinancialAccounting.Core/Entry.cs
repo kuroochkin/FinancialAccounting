@@ -24,6 +24,7 @@ public static class Entry
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
         services.AddScoped<IDbSeeder, DbSeeder>();
         services.AddScoped<ITokenAuthenticationService, TokenAuthenticationService>();
+        services.AddScoped<IClaimsIdentityFactory, ClaimsIdentityFactory>();
 
         return services;
     }
