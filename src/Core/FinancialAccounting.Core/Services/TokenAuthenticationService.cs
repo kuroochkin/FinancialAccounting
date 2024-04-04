@@ -32,7 +32,7 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	/// <summary>
 	/// Приватный ключ шифрования.
 	/// </summary>
-	protected SecurityKey SecurityKey
+	private SecurityKey SecurityKey
 	{
 		get
 		{
@@ -45,7 +45,7 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	/// <summary>
 	/// Ключ шифрования с шифром.
 	/// </summary>
-	protected SigningCredentials SigningCredentials => new(SecurityKey, SecurityAlgorithms.HmacSha512);
+	private SigningCredentials SigningCredentials => new(SecurityKey, SecurityAlgorithms.HmacSha512);
 
 	/// <summary>
 	/// Создать токен для пользователя с клаймами.
