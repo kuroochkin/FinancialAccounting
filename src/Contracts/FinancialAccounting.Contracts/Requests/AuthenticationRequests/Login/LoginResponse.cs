@@ -24,11 +24,6 @@ public class LoginResponse
     public Guid UserId { get; }
 
     /// <summary>
-    /// Роль пользователя
-    /// </summary>
-    public string Role { get; } = default!;
-
-    /// <summary>
     /// Токен авторизации
     /// </summary>
     public string Token { get; }

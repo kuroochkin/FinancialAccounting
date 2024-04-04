@@ -1,6 +1,7 @@
 using FinancialAccounting.Core;
 using FinancialAccounting.Dara.PostgreSql;
 using FinancialAccounting.Web.Authentication;
+using FinancialAccounting.Web.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +12,11 @@ var configuration = builder.Configuration;
 services.AddEndpointsApiExplorer().AddSwaggerGen();
 
 services
+    .AddSwagger()
     .AddHttpContextAccessor()
-    .AddCore()
     .AddUserContext()
+    .AddCustomHeaderAuthentication(services)
+    .AddCore()
     .AddPostgreSql(x => x.ConnectionString = configuration.GetConnectionString("DbConnectionString"))
     .AddCors(options => options.AddPolicy(
         "AllowOrigin",
@@ -40,6 +43,10 @@ var app = builder.Build();
     }
 
     app.UseCors("AllowOrigin");
+    
+    app.UseAuthentication();
+
+    app.UseAuthorization();
 
     app.MapControllers();
 
