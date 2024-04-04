@@ -1,7 +1,7 @@
 namespace FinancialAccounting.Contracts.Requests.AuthenticationRequests.Register;
 
 /// <summary>
-/// Запрос на регистрацию студента
+/// Запрос на регистрацию пользователя
 /// </summary>
 public class RegisterRequest
 {

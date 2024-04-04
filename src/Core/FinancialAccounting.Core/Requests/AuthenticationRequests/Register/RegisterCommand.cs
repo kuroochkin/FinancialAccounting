@@ -4,7 +4,7 @@ using MediatR;
 namespace FinancialAccounting.Core.Requests.AuthenticationRequests.Register;
 
 /// <summary>
-/// Команда на регистрацию студента
+/// Команда на регистрацию пользователя
 /// </summary>
 public class RegisterCommand : RegisterRequest, IRequest<RegisterResponse>
 {

@@ -20,7 +20,7 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	public string Authority => "Auth";
 
 	/// <summary>
-	/// Аудитория токенов. Для каждого типа токенов задаем разную аудиторию.
+	/// Аудитория токенов
 	/// </summary>
 	public string Audience => "Aud";
 
@@ -30,7 +30,7 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	public string ClaimsIssuer => "Iss";
 
 	/// <summary>
-	/// Приватный ключ шифрования.
+	/// Приватный ключ шифрования
 	/// </summary>
 	private SecurityKey SecurityKey
 	{
@@ -43,16 +43,16 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	}
 
 	/// <summary>
-	/// Ключ шифрования с шифром.
+	/// Ключ шифрования с шифром
 	/// </summary>
 	private SigningCredentials SigningCredentials => new(SecurityKey, SecurityAlgorithms.HmacSha512);
 
 	/// <summary>
-	/// Создать токен для пользователя с клаймами.
+	/// Создать токен для пользователя с клаймами
 	/// </summary>
-	/// <param name="identity">Пользователь с клаймами.</param>
-	/// <param name="tokenType">Тип токена.</param>
-	/// <returns>Токен для пользователя с клаймами.</returns>
+	/// <param name="identity">Пользователь с клаймами</param>
+	/// <param name="tokenType">Тип токена</param>
+	/// <returns>Токен для пользователя с клаймами</returns>
 	public string CreateToken(ClaimsIdentity identity, TokenTypes tokenType)
 	{
 		var handler = new JwtSecurityTokenHandler();
@@ -77,8 +77,8 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	/// <summary>
 	/// Получить параметры валидации токенов.
 	/// </summary>
-	/// <param name="tokenType">Тип токенов.</param>
-	/// <returns>Параметры валидации токенов.</returns>
+	/// <param name="tokenType">Тип токенов</param>
+	/// <returns>Параметры валидации токенов</returns>
 	public TokenValidationParameters GetTokenValidationParameters(TokenTypes tokenType) => new()
 	{
 		IssuerSigningKey = SecurityKey,
@@ -92,9 +92,9 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	};
 
 	/// <summary>
-	/// Получить время жизни токена по его типу.
+	/// Получить время жизни токена по его типу
 	/// </summary>
-	/// <param name="tokenType">Тип токена.</param>
+	/// <param name="tokenType">Тип токена</param>
 	/// <returns>Время жизни.</returns>
 	private TimeSpan GetTokenLifetimeByTokenType(TokenTypes tokenType)
 	{
@@ -111,7 +111,7 @@ public class TokenAuthenticationService : ITokenAuthenticationService
 	/// <summary>
 	/// Получить аудиторию токена по его типу.
 	/// </summary>
-	/// <param name="tokenType">Тип токена.</param>
-	/// <returns>Аудитория токена.</returns>
+	/// <param name="tokenType">Тип токена</param>
+	/// <returns>Аудитория токена</returns>
 	private string GetAudienceByTokenType(TokenTypes tokenType) => $"audience_{tokenType}";
 }

@@ -6,7 +6,7 @@ using FinancialAccounting.Domain.Entities;
 namespace FinancialAccounting.Core.Services;
 
 /// <summary>
-/// Фабрика ClaimsPrincipal для пользователей.
+/// Фабрика ClaimsPrincipal для пользователей
 /// </summary>
 public class ClaimsIdentityFactory : IClaimsIdentityFactory
 {
