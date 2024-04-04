@@ -1,4 +1,7 @@
 using FinancialAccounting.Core.Abstractions;
+using FinancialAccounting.Domain.Enums;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace FinancialAccounting.Web.Authentication;
 
@@ -15,4 +18,29 @@ public static class Entry
     public static IServiceCollection AddUserContext(this IServiceCollection services) =>
         services
             .AddScoped<IUserContext, UserContext>();
+    
+    /// <summary>
+    /// Добавить аутентификацию по хэдерам
+    /// </summary>
+    /// <param name="builder">Строитель</param>
+    /// <param name="services">Сервисы</param>
+    /// <returns>Строитель аутентификации с аутентификацией</returns>
+    public static IServiceCollection AddCustomHeaderAuthentication(this IServiceCollection builder, IServiceCollection services)
+        => builder
+            .AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                var tokenService = services.BuildServiceProvider().GetRequiredService<ITokenAuthenticationService>();
+                options.Authority = tokenService!.Authority;
+                options.Audience = tokenService.Audience;
+                options.ClaimsIssuer = tokenService.ClaimsIssuer;
+                options.TokenValidationParameters = tokenService.GetTokenValidationParameters(TokenTypes.Auth);
+                options.Configuration = new OpenIdConnectConfiguration();
+            })
+            .Services;
 }
