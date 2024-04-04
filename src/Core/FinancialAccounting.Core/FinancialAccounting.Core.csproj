@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Contracts\FinancialAccounting.Contracts\FinancialAccounting.Contracts.csproj" />
       <ProjectReference Include="..\FinancialAccounting.Domain\FinancialAccounting.Domain.csproj" />
     </ItemGroup>
 

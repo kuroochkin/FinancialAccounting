@@ -3,7 +3,7 @@ namespace FinancialAccounting.Contracts.Requests.AuthenticationRequests.Register
 /// <summary>
 /// Запрос на регистрацию студента
 /// </summary>
-public class RegisterStudentRequest
+public class RegisterRequest
 {
     /// <summary>
     /// Логин
@@ -24,19 +24,4 @@ public class RegisterStudentRequest
     /// Номер телефона
     /// </summary>
     public string Phone { get; set; } = default!;
-
-    /// <summary>
-    /// Фамилия
-    /// </summary>
-    public string LastName { get; set; } = default!;
-
-    /// <summary>
-    /// Имя
-    /// </summary>
-    public string FirstName { get; set; } = default!;
-
-    /// <summary>
-    /// Дата рождения
-    /// </summary>
-    public DateTime Birthday { get; set; }
 }
