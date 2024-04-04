@@ -34,6 +34,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterR
         _tokenAuthenticationService = tokenAuthenticationService;
     }
     
+    /// <inheritdoc/>
     public async Task<RegisterResponse> Handle(
         RegisterCommand request, 
         CancellationToken cancellationToken)

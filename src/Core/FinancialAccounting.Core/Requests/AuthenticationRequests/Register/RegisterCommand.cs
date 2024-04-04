@@ -6,6 +6,6 @@ namespace FinancialAccounting.Core.Requests.AuthenticationRequests.Register;
 /// <summary>
 /// Команда на регистрацию студента
 /// </summary>
-public class RegisterCommand : RegisterRequest, IRequest<RegisterResponse>, IRequest<RegisterRequest>
+public class RegisterCommand : RegisterRequest, IRequest<RegisterResponse>
 {
 }
