@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FinancialAccounting.Core;
 
-/// <summary>
+/// <summary> 
 /// Класс - входная точка проекта, регистрирующий реализованные зависимости текущим проектом
 /// </summary>
 public static class Entry
@@ -25,6 +25,7 @@ public static class Entry
         services.AddScoped<IDbSeeder, DbSeeder>();
         services.AddScoped<ITokenAuthenticationService, TokenAuthenticationService>();
         services.AddScoped<IClaimsIdentityFactory, ClaimsIdentityFactory>();
+        services.AddSingleton<IPasswordEncryptionService, PasswordEncryptionService>();
 
         return services;
     }
