@@ -26,14 +26,17 @@ public class Transfer : EntityBase
     /// Конструктор
     /// </summary>
     /// <param name="amount"></param>
+    /// <param name="comment">Комментарий перевода</param>
     /// <param name="fromBankAccount">Счет, с которого совершен перевод</param>
     /// <param name="toBankAccount">Счет, на который совершен перевод</param>
     public Transfer(
         decimal amount,
+        string? comment,
         BankAccount? fromBankAccount,
         BankAccount? toBankAccount)
     {
         Amount = amount;
+        Comment = comment;
         FromBankAccount = fromBankAccount;
         ToBankAccount = toBankAccount;
     }
@@ -55,6 +58,11 @@ public class Transfer : EntityBase
             ? value
             : throw new ApplicationExceptionBase("Введена некорректная сумма");
     }
+    
+    /// <summary>
+    /// Комментарий
+    /// </summary>
+    public string? Comment { get; private set; }
     
     /// <summary>
     /// Идентификатор счета, с которого был отправлен перевод

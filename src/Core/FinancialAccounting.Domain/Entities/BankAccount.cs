@@ -28,6 +28,7 @@ public class BankAccount : EntityBase
     public const string InTransfersField = nameof(_inTransfers);
     
     private decimal _balance;
+    private string _title;
     
     private User? _user;
     private List<FinancialTransaction>? _financialTransactions;
@@ -38,12 +39,15 @@ public class BankAccount : EntityBase
     /// Конструктор
     /// </summary>
     /// <param name="balance">Баланс счета</param>
+    /// <param name="title">Название счета</param>
     /// <param name="user">Пользователь-владелец счета</param>
     public BankAccount(
         decimal balance,
+        string title,
         User? user)
     {
         Balance = balance;
+        Title = title;
         User = user;
 
         _financialTransactions = new List<FinancialTransaction>();
@@ -72,6 +76,16 @@ public class BankAccount : EntityBase
         private set => _balance = value is >= 0
             ? value
             : throw new ApplicationExceptionBase("Введена некорректная сумма");
+    }
+    
+    /// <summary>
+    /// Логин
+    /// </summary>
+    public string? Title
+    {
+        get => _title;
+        private set => _title = value
+            ?? throw new RequiredFieldNotSpecifiedException("Логин");
     }
 
     /// <summary>
@@ -103,4 +117,43 @@ public class BankAccount : EntityBase
     /// Переводы на счет
     /// </summary>
     public IReadOnlyList<Transfer>? InTransfers => _inTransfers;
+
+    /// <summary>
+    /// Добавление сущности перевода в список
+    /// </summary>
+    /// <param name="transfer">Перевод</param>
+    public void AddTransfer(Transfer transfer)
+    {
+        if (transfer.FromBankAccountId == Id || transfer.ToBankAccountId == Id)
+        {
+            if (transfer.FromBankAccountId == Id)
+                _outTransfers?.Add(transfer);
+            else if (transfer.ToBankAccountId == Id)
+                _inTransfers?.Add(transfer);
+            
+            ChangeBalance(transfer);
+        }
+        else
+            throw new ApplicationExceptionBase($"Перевод c Id {transfer.Id} никак не связан с со счетом с Id {Id}");
+    }
+
+    private void ChangeBalance(Transfer transfer)
+    {
+        if (transfer.FromBankAccountId == Id)
+        {
+            if (_balance < transfer.Amount)
+                throw new ApplicationExceptionBase(
+                    $"Недостаточно средств на счету с Id {Id} для совершения перевода");
+
+            _balance -= transfer.Amount;
+        }
+        else if (transfer.ToBankAccountId == Id)
+        {
+            _balance += transfer.Amount;
+        }
+        else
+        {
+            throw new ApplicationExceptionBase($"Перевод с Id {transfer.Id} не связан со счетом с Id {Id}");
+        }
+    }
 }
