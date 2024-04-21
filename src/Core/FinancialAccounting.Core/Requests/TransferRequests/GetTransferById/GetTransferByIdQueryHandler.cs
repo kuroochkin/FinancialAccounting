@@ -51,14 +51,14 @@ public class GetTransferByIdQueryHandler
             Amount = transfer.Amount,
             CreatedDate = transfer.CreatedOn,
             FromBankAccount = transfer.FromBankAccount != null
-                ? new BankAccountResponse
+                ? new GetTransferByIdResponseBankAccount
                 {
                     Id = transfer.FromBankAccountId,
                     Title = transfer.FromBankAccount.Title
                 }
                 : default,
             ToBankAccount = transfer.ToBankAccount != null
-                ? new BankAccountResponse
+                ? new GetTransferByIdResponseBankAccount
                 {
                     Id = transfer.ToBankAccountId,
                     Title = transfer.ToBankAccount.Title

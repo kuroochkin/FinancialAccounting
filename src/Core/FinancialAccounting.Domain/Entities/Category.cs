@@ -27,10 +27,15 @@ public class Category : EntityBase
     /// <summary>
     /// Конструктор
     /// </summary>
+    /// <param name="userId">Идентификатор пользователя</param>
     /// <param name="title">Название категории</param>
-    public Category(string title)
+    public Category(
+        Guid userId, 
+        string title)
     {
+        UserId = userId;
         Title = title;
+        
         _financialTransactions = new List<FinancialTransaction>();
     }
 
