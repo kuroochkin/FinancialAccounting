@@ -28,10 +28,10 @@ public class GetTransferByIdResponse
     /// <summary>
     /// Счет, с которого был совершен перевод
     /// </summary>
-    public BankAccountResponse? FromBankAccount { get; set; }
+    public GetTransferByIdResponseBankAccount? FromBankAccount { get; set; }
 
     /// <summary>
     /// Счет, на который был совершен перевод
     /// </summary>
-    public BankAccountResponse? ToBankAccount { get; set; }
+    public GetTransferByIdResponseBankAccount? ToBankAccount { get; set; }
 }
