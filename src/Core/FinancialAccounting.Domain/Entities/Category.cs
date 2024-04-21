@@ -20,6 +20,11 @@ public class Category : EntityBase
     public string Title { get; private set; }
 
     /// <summary>
+    /// Id пользователя
+    /// </summary>
+    public Guid? UserId { get; private set; }
+
+    /// <summary>
     /// Конструктор
     /// </summary>
     /// <param name="title">Название категории</param>

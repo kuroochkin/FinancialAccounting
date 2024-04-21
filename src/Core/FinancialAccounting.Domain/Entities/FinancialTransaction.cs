@@ -40,6 +40,7 @@ public class FinancialTransaction : EntityBase
     /// <param name="type">Тип операции</param>
     /// <param name="category">Категория</param>
     /// <param name="bankAccount">Счет, на котором произвелась операция</param>
+    /// <param name="userId">Id пользователя</param>
     /// <param name="comment">Комментарий</param>
     /// <param name="actualDate">Фактическая дата операции</param>
     public FinancialTransaction(
@@ -47,6 +48,7 @@ public class FinancialTransaction : EntityBase
         TransactionType type,
         Category? category,
         BankAccount? bankAccount,
+        Guid userId,
         string? comment = default,
         DateTime actualDate = default)
     {
@@ -56,6 +58,7 @@ public class FinancialTransaction : EntityBase
         BankAccount = bankAccount;
         Comment = comment;
         ActualDate = actualDate;
+        UserId = userId;
         
         _photos = new List<Photo>();
     }
@@ -67,17 +70,6 @@ public class FinancialTransaction : EntityBase
     {
     }
 
-    /// <summary>
-    /// Категория
-    /// </summary>
-    public Guid? CategoryId { get; private set; }
-
-    /// <summary>
-    /// Счет
-    /// </summary>
-    public Guid? BankAccountId { get; private set; }
-    
-    
     /// <summary>
     /// Сумма операции
     /// </summary>
@@ -143,6 +135,21 @@ public class FinancialTransaction : EntityBase
     /// Комментарий
     /// </summary>
     public string? Comment { get; private set; }
+
+    /// <summary>
+    /// Id пользователя
+    /// </summary>
+    public Guid UserId { get; private set; }
+    
+    /// <summary>
+    /// Категория
+    /// </summary>
+    public Guid? CategoryId { get; private set; }
+
+    /// <summary>
+    /// Счет
+    /// </summary>
+    public Guid? BankAccountId { get; private set; }
 
     /// <summary>
     /// Список фото, прикрепленных к операции

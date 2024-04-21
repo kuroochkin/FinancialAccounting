@@ -40,6 +40,10 @@ internal class FinancialTransactionConfiguration : EntityBaseConfiguration<Finan
             .HasComment("Идентификатор счета")
             .IsRequired();
         
+        builder.Property(p => p.UserId)
+            .HasComment("Идентификтор пользователя")
+            .IsRequired();
+        
         builder.HasOne(x => x.Category)
             .WithMany(y => y.FinancialTransactions)
             .HasForeignKey(x => x.CategoryId)
