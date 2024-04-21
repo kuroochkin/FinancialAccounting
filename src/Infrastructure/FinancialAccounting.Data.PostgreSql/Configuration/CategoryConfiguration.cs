@@ -21,6 +21,10 @@ internal class CategoryConfiguration : EntityBaseConfiguration<Category>
             .HasComment("Название категории")
             .IsRequired();
 
+        builder.Property(p => p.UserId)
+            .HasComment("Идентификтор пользователя")
+            .IsRequired();
+
         builder.HasMany(x => x.FinancialTransactions)
             .WithOne(y => y.Category)
             .HasForeignKey(y => y.CategoryId)
