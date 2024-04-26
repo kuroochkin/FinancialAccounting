@@ -1,5 +1,8 @@
 using FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.GetFinancialTransactionById;
+using FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.GetFinancialTransactionList;
+using FinancialAccounting.Core.Models;
 using FinancialAccounting.Core.Requests.FinancialTransactionRequests.GetFinancialTransactionById;
+using FinancialAccounting.Core.Requests.FinancialTransactionRequests.GetFinancialTransactionList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -30,5 +33,19 @@ public class FinancialTransactionController : ApiControllerBase
             {
                 Id = id
             },
+            cancellationToken);
+
+    [HttpPost("list")]
+    [SwaggerResponse(StatusCodes.Status200OK, type: typeof(GetFinancialTransactionListResponse))]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, type: typeof(ProblemDetails))]
+    public async Task<GetFinancialTransactionListResponse> GetFinancialTransactionsAsync(
+        [FromBody] FinancialTransactionFilter filter,
+        [FromServices] IMediator mediator,
+        CancellationToken cancellationToken)
+        => await mediator.Send(
+            new GetFinancialTransactionListQuery
+            {
+                Filter = filter
+            }, 
             cancellationToken);
 }
