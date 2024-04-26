@@ -28,7 +28,7 @@ public class GetFinancialTransactionListQueryHandler
         _userContext = userContext;
     }
 
-    public async Task<GetFinancialTransactionListResponse> Handle(
+    public async Task<GetFinancialTransactionListResponse> Handle( 
         GetFinancialTransactionListQuery request,
         CancellationToken cancellationToken)
     {

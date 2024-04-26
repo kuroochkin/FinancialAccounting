@@ -1,3 +1,4 @@
+using FinancialAccounting.Domain.Enums;
 using FinancialAccounting.Domain.Exceptions;
 
 namespace FinancialAccounting.Domain.Entities;
@@ -155,5 +156,37 @@ public class BankAccount : EntityBase
         {
             throw new ApplicationExceptionBase($"Перевод с Id {transfer.Id} не связан со счетом с Id {Id}");
         }
+    }
+
+    /// <summary>
+    /// Добавление финансовой транзакции в список
+    /// </summary>
+    /// <param name="financialTransaction">Финансовая транзакция</param>
+    public void AddFinancialTransaction(FinancialTransaction financialTransaction)
+    {
+        switch (financialTransaction.Type)
+        {
+            case TransactionType.Consumption:
+                Balance -= financialTransaction.Amount;
+                break;
+            case TransactionType.Income:
+                Balance += financialTransaction.Amount;
+                break;
+            default:
+                throw new ArgumentException("Невалидное значение типа финансовой транзакции");
+        }
+
+        _financialTransactions?.Add(financialTransaction);
+    }
+
+    /// <summary>
+    /// Проверка на принадлежность банковского счета пользователю
+    /// </summary>
+    /// <param name="userId">Идентификатор пользователя</param>
+    public void CheckUserInDesiredBankAccount(Guid userId)
+    {
+        if (UserId != userId)
+            throw new ApplicationException(
+                $"Банковский счет с Id {Id} не принадлежит пользователю с Id {userId}");
     }
 }
