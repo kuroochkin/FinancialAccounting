@@ -1,10 +1,12 @@
 using FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.GetFinancialTransactionById;
 using FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.GetFinancialTransactionList;
 using FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.PostFinancialTransaction;
+using FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.PutFinancialTransaction;
 using FinancialAccounting.Core.Models;
 using FinancialAccounting.Core.Requests.FinancialTransactionRequests.GetFinancialTransactionById;
 using FinancialAccounting.Core.Requests.FinancialTransactionRequests.GetFinancialTransactionList;
 using FinancialAccounting.Core.Requests.FinancialTransactionRequests.PostFinancialTransaction;
+using FinancialAccounting.Core.Requests.FinancialTransactionRequests.PutFinancialTransaction;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -67,6 +69,32 @@ public class FinancialTransactionController : ApiControllerBase
         => await mediator.Send(
             new PostFinancialTransactionCommand
             {
+                Amount = request.Amount,
+                Type = request.Type,
+                ActualDate = request.ActualDate,
+                Comment = request.Comment,
+                BankAccountId = request.BankAccountId,
+                CategoryId = request.CategoryId
+            },
+            cancellationToken);
+    
+    /// <summary>
+    /// Редактировать финансовую транзакцию
+    /// </summary>
+    /// <param name="mediator">Медиатор CQRS</param>
+    /// <param name="request">Объект запроса</param>
+    /// <param name="cancellationToken">Токен отмены</param>
+    [HttpPut]
+    [SwaggerResponse(StatusCodes.Status204NoContent)]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, type: typeof(ProblemDetails))]
+    public async Task<PutFinancialTransactionResponse> UpdateFinancialTransactionAsync(
+        [FromServices] IMediator mediator,
+        [FromBody] PutFinancialTransactionRequest request,
+        CancellationToken cancellationToken)
+        => await mediator.Send(
+            new PutFinancialTransactionCommand
+            {
+                Id = request.Id,
                 Amount = request.Amount,
                 Type = request.Type,
                 ActualDate = request.ActualDate,

@@ -159,24 +159,44 @@ public class BankAccount : EntityBase
     }
 
     /// <summary>
-    /// Добавление финансовой транзакции в список
+    /// Добавление/редактирование финансовой транзакции
     /// </summary>
     /// <param name="financialTransaction">Финансовая транзакция</param>
-    public void AddFinancialTransaction(FinancialTransaction financialTransaction)
+    /// <param name="isNewTransaction">Является ли финансовая транзакция новой</param>
+    public void AddOrUpdateFinancialTransaction(
+        FinancialTransaction financialTransaction, 
+        bool isNewTransaction)
     {
-        switch (financialTransaction.Type)
-        {
-            case TransactionType.Consumption:
-                Balance -= financialTransaction.Amount;
-                break;
-            case TransactionType.Income:
-                Balance += financialTransaction.Amount;
-                break;
-            default:
-                throw new ArgumentException("Невалидное значение типа финансовой транзакции");
-        }
-
-        _financialTransactions?.Add(financialTransaction);
+        ModifyBalance(
+            amount: financialTransaction.Amount, 
+            transactionType: financialTransaction.Type, 
+            isNewTransaction: isNewTransaction);
+        
+        if (isNewTransaction && !_financialTransactions!.Contains(financialTransaction))
+            _financialTransactions?.Add(financialTransaction);
+    }
+    
+    /// <summary>
+    /// Изменение баланса счета на указанную сумму в зависимости от типа транзакции
+    /// </summary>
+    /// <param name="amount">Сумма изменения баланса</param>
+    /// <param name="transactionType">Тип транзакции (расход или доход)</param>
+    /// <param name="isNewTransaction">Является ли транзакция новой</param>
+    private void ModifyBalance(
+        decimal amount, 
+        TransactionType transactionType, 
+        bool isNewTransaction)
+    {
+        int direction;
+        
+        if (transactionType == TransactionType.Consumption)
+            direction = isNewTransaction ? -1 : 1;
+        else if (transactionType == TransactionType.Income) 
+            direction = isNewTransaction ? 1 : -1;
+        else
+            throw new ArgumentException("Невалидное значение типа финансовой транзакции");
+        
+        _balance += direction * amount;
     }
 
     /// <summary>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace FinancialAccounting.Core.Requests.FinancialTransactionRequests.PostFinancialTransaction;
 
 /// <summary>
-/// Обработчик для запроса <see cref="PostFinancialTransactionCommand"/>
+/// Обработчик для команды <see cref="PostFinancialTransactionCommand"/>
 /// </summary>
 public class PostFinancialTransactionCommandHandler
     : IRequestHandler<PostFinancialTransactionCommand, PostFinancialTransactionResponse>
@@ -36,18 +36,17 @@ public class PostFinancialTransactionCommandHandler
     {
         ArgumentNullException.ThrowIfNull(request);
         
-        if (request.Amount == default)
-            throw new RequiredFieldNotSpecifiedException("Сумма");
+        var userId = _userContext.CurrentUserId;
 
         var category = await _dbContext.Categories
+            .Include(a => a.FinancialTransactions)
             .FirstOrDefaultAsync(a => a.Id == request.CategoryId, cancellationToken)
             ?? throw new NotFoundException($"Категория с Id {request.CategoryId} не найдена");
 
         var bankAccount = await _dbContext.BankAccounts
+            .Include(a => a.FinancialTransactions)
             .FirstOrDefaultAsync(a => a.Id == request.BankAccountId, cancellationToken)
             ?? throw new NotFoundException($"Банковский счет с Id {request.BankAccountId} не найден");
-
-        var userId = _userContext.CurrentUserId;
         
         category.CheckUserInDesiredCategory(userId);
         bankAccount.CheckUserInDesiredBankAccount(userId);
@@ -62,7 +61,9 @@ public class PostFinancialTransactionCommandHandler
             userId: userId
         );
 
-        bankAccount.AddFinancialTransaction(financialTransaction);
+        bankAccount.AddOrUpdateFinancialTransaction(
+            financialTransaction: financialTransaction,
+            isNewTransaction: true);
 
         _dbContext.FinancialTransactions.Add(financialTransaction);
         await _dbContext.SaveChangesAsync(cancellationToken);
