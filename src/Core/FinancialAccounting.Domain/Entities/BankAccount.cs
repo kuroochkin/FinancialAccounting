@@ -1,3 +1,4 @@
+using FinancialAccounting.Domain.Enums;
 using FinancialAccounting.Domain.Exceptions;
 
 namespace FinancialAccounting.Domain.Entities;
@@ -155,5 +156,57 @@ public class BankAccount : EntityBase
         {
             throw new ApplicationExceptionBase($"Перевод с Id {transfer.Id} не связан со счетом с Id {Id}");
         }
+    }
+
+    /// <summary>
+    /// Добавление/редактирование финансовой транзакции
+    /// </summary>
+    /// <param name="financialTransaction">Финансовая транзакция</param>
+    /// <param name="isNewTransaction">Является ли финансовая транзакция новой</param>
+    public void AddOrUpdateFinancialTransaction(
+        FinancialTransaction financialTransaction, 
+        bool isNewTransaction)
+    {
+        ModifyBalance(
+            amount: financialTransaction.Amount, 
+            transactionType: financialTransaction.Type, 
+            isNewTransaction: isNewTransaction);
+        
+        if (isNewTransaction && !_financialTransactions!.Contains(financialTransaction))
+            _financialTransactions?.Add(financialTransaction);
+    }
+    
+    /// <summary>
+    /// Изменение баланса счета на указанную сумму в зависимости от типа транзакции
+    /// </summary>
+    /// <param name="amount">Сумма изменения баланса</param>
+    /// <param name="transactionType">Тип транзакции (расход или доход)</param>
+    /// <param name="isNewTransaction">Является ли транзакция новой</param>
+    private void ModifyBalance(
+        decimal amount, 
+        TransactionType transactionType, 
+        bool isNewTransaction)
+    {
+        int direction;
+        
+        if (transactionType == TransactionType.Consumption)
+            direction = isNewTransaction ? -1 : 1;
+        else if (transactionType == TransactionType.Income) 
+            direction = isNewTransaction ? 1 : -1;
+        else
+            throw new ArgumentException("Невалидное значение типа финансовой транзакции");
+        
+        _balance += direction * amount;
+    }
+
+    /// <summary>
+    /// Проверка на принадлежность банковского счета пользователю
+    /// </summary>
+    /// <param name="userId">Идентификатор пользователя</param>
+    public void CheckUserInDesiredBankAccount(Guid userId)
+    {
+        if (UserId != userId)
+            throw new ApplicationException(
+                $"Банковский счет с Id {Id} не принадлежит пользователю с Id {userId}");
     }
 }

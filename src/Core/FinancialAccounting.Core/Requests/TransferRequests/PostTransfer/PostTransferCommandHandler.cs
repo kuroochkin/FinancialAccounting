@@ -37,7 +37,7 @@ public class PostTransferCommandHandler
         ArgumentNullException.ThrowIfNull(request);
         
         if (request.Amount == default)
-            throw new RequiredFieldNotSpecifiedException();
+            throw new RequiredFieldNotSpecifiedException("Сумма");
         
         var bankAccounts = await _dbContext.BankAccounts
             .Where(x => x.Id == request.FromBankAccountId || x.Id == request.ToBankAccountId)

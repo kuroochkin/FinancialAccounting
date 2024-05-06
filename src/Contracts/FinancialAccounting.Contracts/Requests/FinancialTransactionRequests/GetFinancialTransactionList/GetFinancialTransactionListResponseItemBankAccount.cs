@@ -1,9 +1,9 @@
-namespace FinancialAccounting.Contracts.Requests.TransferRequests.GetTransferById;
+namespace FinancialAccounting.Contracts.Requests.FinancialTransactionRequests.GetFinancialTransactionList;
 
 /// <summary>
-/// Модель банковского счета для получения перевода
+/// Ответ банковского счета для <see cref="GetFinancialTransactionListResponseItem"/>
 /// </summary>
-public class BankAccountResponse
+public class GetFinancialTransactionListResponseItemBankAccount
 {
     /// <summary>
     /// Идентификатор банковского счета

@@ -27,10 +27,15 @@ public class Category : EntityBase
     /// <summary>
     /// Конструктор
     /// </summary>
+    /// <param name="userId">Идентификатор пользователя</param>
     /// <param name="title">Название категории</param>
-    public Category(string title)
+    public Category(
+        Guid userId, 
+        string title)
     {
+        UserId = userId;
         Title = title;
+        
         _financialTransactions = new List<FinancialTransaction>();
     }
 
@@ -56,5 +61,16 @@ public class Category : EntityBase
             throw new ValidationException("Не задано новое название для категории");
 
         Title = title;
+    }
+
+    /// <summary>
+    /// Проверка на принадлежность категории пользователю
+    /// </summary>
+    /// <param name="userId">Идентификатор пользователя</param>
+    public void CheckUserInDesiredCategory(Guid userId)
+    {
+        if (UserId != userId)
+            throw new ApplicationException(
+                $"Категория с Id {Id} не принадлежит пользователю с Id {userId}");
     }
 }

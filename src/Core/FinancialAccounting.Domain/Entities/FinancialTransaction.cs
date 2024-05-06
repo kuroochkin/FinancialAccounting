@@ -156,6 +156,28 @@ public class FinancialTransaction : EntityBase
     /// </summary>
     public IReadOnlyList<Photo> Photos => _photos;
 
+    public void Upsert(
+        decimal amount = default,
+        DateTime actualDate = default,
+        TransactionType type = default,
+        string? comment = default,
+        BankAccount? bankAccount = default,
+        Category? category = default)
+    {
+        if (amount != default && Amount != amount)
+            Amount = amount;
+        if (ActualDate != actualDate.ToUniversalTime())
+            ActualDate = actualDate;
+        if (Type != type)
+            Type = type;
+        if (comment != null && Comment != comment)
+            Comment = comment;
+        if (bankAccount != null && BankAccount != bankAccount)
+            BankAccount = bankAccount;
+        if (category != null && Category != category)
+            Category = category;
+    }
+
     public void AddPhotos(List<Photo> photos)
     {
         ArgumentNullException.ThrowIfNull(photos);
